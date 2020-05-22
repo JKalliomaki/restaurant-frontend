@@ -1,16 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {
+  BrowserRouter as Router,
+  Switch, Route, 
+} from 'react-router-dom'
 
 import Menu from './components/menu'
-import AddFoodForm from './components/AddFoodForm'
+import Dashboard from './components/Dashboard'
 
 const App = () => {
 
   return (
-    <div>
-      
-      <Menu />
-      <AddFoodForm />
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/dashboard'>
+          <Dashboard />
+        </Route>
+        <Route path='/'>
+          <div>
+            <Menu />
+          </div>
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 

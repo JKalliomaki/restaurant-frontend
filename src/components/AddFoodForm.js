@@ -4,7 +4,6 @@ import Select from 'react-dropdown-select'
 
 import {useField} from '../utils/hooks'
 import {CREATE_FOOD, FOODS_BY_CATEGORY} from '../queries'
-import {logError} from '../utils/logger'
 
 const AddFoodForm = () => {
   // States for form
@@ -20,7 +19,7 @@ const AddFoodForm = () => {
       query: FOODS_BY_CATEGORY,
       variables: {category}
     }],
-    onError: e => logError(e)
+    onError: e => console.log(e)
   })
   
   const DIET_OPTIONS = [
