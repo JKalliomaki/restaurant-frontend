@@ -1,9 +1,10 @@
 import {gql} from '@apollo/client'
 
 export const CREATE_FOOD = gql`
-mutation createFood($name: String!, $category: String!, $diet: [String], $ingredients: [String]){
+mutation createFood($name: String!, $price: Float!, $category: String!, $diet: [String], $ingredients: [String]){
   addFood(
     name: $name,
+    price: $price,
     category: $category,
     diet: $diet,
     ingredients: $ingredients

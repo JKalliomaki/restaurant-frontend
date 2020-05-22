@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Menu from './components/menu'
+import AddFoodForm from './components/AddFoodForm'
 
 const App = () => {
 
@@ -8,6 +9,7 @@ const App = () => {
     <div>
       
       <Menu />
+      <AddFoodForm />
     </div>
   )
 }
