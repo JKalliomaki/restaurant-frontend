@@ -9,9 +9,10 @@ mutation createFood($name: String!, $category: String!, $diet: [String], $ingred
     ingredients: $ingredients
   ){
     name
+    price
     category
     diet
-    ingredient
+    ingredients
   }
 }
 `
@@ -19,5 +20,16 @@ mutation createFood($name: String!, $category: String!, $diet: [String], $ingred
 export const GET_CATEGORIES = gql`
 query {
   allCategories
+}
+`
+
+export const FOODS_BY_CATEGORY = gql`
+query getFoods($category: String!){
+  foodsByCategory(category: $category){
+    name
+    price
+    diet
+    ingredients
+  }
 }
 `

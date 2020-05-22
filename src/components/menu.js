@@ -14,7 +14,7 @@ const Menu = () => {
   return (
     <div>
       {data.allCategories.map(category => 
-      <OneCategory category={category} />)}
+      <OneCategory key={category} category={category} />)}
     </div>
     )}
 
