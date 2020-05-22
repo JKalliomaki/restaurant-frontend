@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {useMutation} from '@apollo/client'
+import Select from 'react-dropdown-select'
 
 import {useField} from '../utils/hooks'
 import {CREATE_FOOD, FOODS_BY_CATEGORY} from '../queries'
@@ -9,47 +10,51 @@ const AddFoodForm = () => {
   // States for form
   const [foodName, resetFoodName] = useField('foodName')
   const [price, resetPrice] = useField('price')
-  const [category, resetCategory] = useField('category')
-  const [diet, setDiet] = useState([])
-  const [dietField, resetDietField] = useField('diet')
+  const [category, setCategory] = useState('starter')
+  const [dietValues, setDietValues] = useState([])
   const [ingredients, setIngredients] = useState([])
   const [ingredientField, resetIngredientField] = useField('diet')
-
+  
   const [sendFood] = useMutation(CREATE_FOOD, {
     refetchQueries: [{
       query: FOODS_BY_CATEGORY,
-      variables: {category: category.value}
+      variables: {category}
     }],
     onError: e => logError(e)
   })
-
-  const addDiet = (event) => {
-    event.preventDefault()
-    setDiet(diet.concat(dietField.value))
-    resetDietField()
-  }
+  
+  const DIET_OPTIONS = [
+    {
+      label: 'gluten-free',
+      value: 'gl'
+    },
+    {
+      label: 'lactose-free',
+      value: 'l'
+    },
+  ]
 
   const addIngredient = (event) => {
     event.preventDefault()
     setIngredients(ingredients.concat(ingredientField.value))
     resetIngredientField()
-  }
-
+  } 
   const addFood = (event) => {
     event.preventDefault()
 
     const newFood = {
       name: foodName.value,
       price: Number(price.value),
-      category: category.value,
-      diet,
+      category,
+      diet: dietValues.map(val => val.value),
       ingredients
     }
-
+    console.log(newFood)
     sendFood({variables: {...newFood}})
+    setDietValues([])
     resetFoodName()
     resetPrice()
-    resetCategory()
+    setCategory('starter')
   }
   
   return (
@@ -84,24 +89,24 @@ const AddFoodForm = () => {
               category: 
               </td>
               <td>
-                <input
-                  id='category'
-                  {...category}
+                <input 
+                  type='radio' 
+                  checked={category === 'starter'}
+                  onChange={() => setCategory('starter')}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                new diet:
-              </td>
-              <td>
-                <input
-                  id='diet'
-                  {...dietField}
+                Starter<br/>
+                <input 
+                  type='radio' 
+                  checked={category === 'main course'}
+                  onChange={() => setCategory('main course')}
                 />
-              </td>
-              <td>
-                <button onClick={addDiet}>add</button>
+                Main course<br/>
+                <input 
+                  type='radio' 
+                  checked={category === 'dessert'}
+                  onChange={() => setCategory('dessert')}
+                />
+                Dessert<br/>
               </td>
             </tr>
             <tr>
@@ -109,7 +114,12 @@ const AddFoodForm = () => {
                 diets: 
               </td>
               <td>
-                {diet.join(', ')}
+                <Select
+                  multi
+                  values={dietValues}
+                  options={DIET_OPTIONS}
+                  onChange={(value) => setDietValues(value)}
+                />
               </td>
             </tr>
             <tr>
