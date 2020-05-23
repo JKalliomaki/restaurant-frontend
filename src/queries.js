@@ -36,6 +36,17 @@ mutation editFood($name: String!, $price: Float!, $category: String!, $diet: [St
 }
 `
 
+export const REMOVE_FOOD = gql`
+mutation removeFood($name: String!){
+  removeFood(
+    name: $name,
+
+  ){
+    name
+  }
+}
+`
+
 export const GET_FOODS = gql`
 query {
   allFoods{

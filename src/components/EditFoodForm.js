@@ -6,7 +6,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 
 
 import {useField} from '../utils/hooks'
-import {EDIT_FOOD, FOODS_BY_CATEGORY} from '../queries'
+import {EDIT_FOOD, FOODS_BY_CATEGORY, REMOVE_FOOD, GET_FOODS} from '../queries'
 
 const DIET_OPTIONS = [
   {
@@ -31,7 +31,20 @@ const EditFoodForm = ({food}) => {
     onError: (e) => console.log(e.message)
   })
 
-  console.log(food)
+  const [removeFood, removeResult] = useMutation(REMOVE_FOOD,{
+    refetchQueries: [
+      {query: FOODS_BY_CATEGORY, variables: {category}},
+      {query: GET_FOODS}
+    ],
+    onError: (e) => console.log(e.message)
+  })
+
+  const removeButton = async (event) => {
+    if(window.confirm(`Confirm removing ${food.name}`)){
+      event.preventDefault()
+      removeFood({variables: {name: food.name}})
+    }
+  }
 
   const updateFood = async (event) => {
     event.preventDefault()
@@ -42,7 +55,6 @@ const EditFoodForm = ({food}) => {
       diet: diets,
       ingredients
     }
-    console.log(editedFood)
     await editFood({variables: {...editedFood}})
   }
 
@@ -144,9 +156,10 @@ const EditFoodForm = ({food}) => {
           </tbody>
         </table>
         <button type='submit'>update</button>
+        <button onClick={removeButton}>X</button>
       </form>
       <ClipLoader
-        loading={result.loading}
+        loading={result.loading || removeResult.loading}
       />
     </div>
   )
