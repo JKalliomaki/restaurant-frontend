@@ -38,9 +38,9 @@ const Dashboard = () => {
   return (
     <div>
       <button onClick={logout}>Logout</button>
-      <div className='menuButtons'>
-        <button className='menuButton' onClick={() => setPage('menu')}>Menu</button>
-        <button className='menuButton' onClick={() => setPage('addFood')}>Add food</button>
+      <div className='navMenuButtons'>
+        <button className='navMenuButton' onClick={() => setPage('menu')}>Menu</button>
+        <button className='navMenuButton' onClick={() => setPage('addFood')}>Add food</button>
       </div>
       {page === 'menu' && <EditMenu foods={foodResult.data}/>}
       {page === 'addFood' && <AddFoodForm />}

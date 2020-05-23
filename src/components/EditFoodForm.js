@@ -2,6 +2,8 @@
 import React, {useState, useEffect} from 'react'
 import {useMutation} from '@apollo/client'
 import Select from 'react-dropdown-select'
+import ClipLoader from 'react-spinners/ClipLoader'
+
 
 import {useField} from '../utils/hooks'
 import {EDIT_FOOD, FOODS_BY_CATEGORY} from '../queries'
@@ -52,7 +54,7 @@ const EditFoodForm = ({food}) => {
 
   useEffect(() => {
     if(food){
-      setPrice(String(food.price))
+      setPrice(String(food.price.toFixed(2)))
       setCategory(food.category)
       setDiets(food.diet.map(diet => ({label: diet, value: diet})))
       setIngredients(food.ingredients)
@@ -143,6 +145,9 @@ const EditFoodForm = ({food}) => {
         </table>
         <button type='submit'>update</button>
       </form>
+      <ClipLoader
+        loading={result.loading}
+      />
     </div>
   )
 

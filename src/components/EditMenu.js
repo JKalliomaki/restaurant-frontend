@@ -39,7 +39,7 @@ const EditMenu = ({foods}) => {
               key={food.name} 
               id={food.name}
               onClick={editButton}
-            >{food.name}</button>
+            >{food.name} price: {Number.parseFloat(food.price).toFixed(2)}</button>
           )}
         </div>)}
       <div>

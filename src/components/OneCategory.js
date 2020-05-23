@@ -17,7 +17,7 @@ const OneCategory = ({category}) => {
           {data.foodsByCategory.map(food => 
             <tr key={food.name}>
               <td>{food.name}</td>
-              <td>{food.price}</td>
+              <td>{Number.parseFloat(food.price).toFixed(2)}</td>
             </tr>
           )}
         </tbody>
