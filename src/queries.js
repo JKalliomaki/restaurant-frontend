@@ -18,6 +18,37 @@ mutation createFood($name: String!, $price: Float!, $category: String!, $diet: [
 }
 `
 
+export const EDIT_FOOD = gql`
+mutation editFood($name: String!, $price: Float!, $category: String!, $diet: [String], $ingredients: [String]){
+  editFood(
+    name: $name,
+    price: $price,
+    category: $category,
+    diet: $diet,
+    ingredients: $ingredients
+  ){
+    name
+    price
+    category
+    diet
+    ingredients
+  }
+}
+`
+
+export const GET_FOODS = gql`
+query {
+  allFoods{
+    name
+    price
+    category
+    diet
+    ingredients
+  }
+}
+
+`
+
 export const GET_CATEGORIES = gql`
 query {
   allCategories

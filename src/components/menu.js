@@ -14,8 +14,8 @@ const Menu = () => {
   return (
     <div>
       {data.allCategories.map(category => 
-      <OneCategory key={category} category={category} />)}
+        <OneCategory key={category} category={category} />)}
     </div>
-    )}
+  )}
 
 export default Menu

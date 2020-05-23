@@ -1,85 +1,81 @@
-import React, {useState} from 'react'
+/* eslint-disable react/prop-types */
+import React, {useState, useEffect} from 'react'
 import {useMutation} from '@apollo/client'
 import Select from 'react-dropdown-select'
 
 import {useField} from '../utils/hooks'
-import {CREATE_FOOD, FOODS_BY_CATEGORY} from '../queries'
+import {EDIT_FOOD, FOODS_BY_CATEGORY} from '../queries'
 
-const AddFoodForm = () => {
-  // States for form
-  const [foodName, resetFoodName] = useField('foodName')
-  const [price, resetPrice] = useField('price')
-  const [category, setCategory] = useState('starter')
-  const [dietValues, setDietValues] = useState([])
+const DIET_OPTIONS = [
+  {
+    label: 'gluten-free',
+    value: 'gluten-free'
+  },
+  {
+    label: 'lactose-free',
+    value: 'lactose-free'
+  },
+]
+
+const EditFoodForm = ({food}) => {
+  const [price, setPrice] = useState('')
+  const [category, setCategory] = useState('')
+  const [diets, setDiets] = useState([])
+  const [ingredientField, resetIngredientField] = useField('ingredient')
   const [ingredients, setIngredients] = useState([])
-  const [ingredientField, resetIngredientField] = useField('diet')
   
-  const [sendFood] = useMutation(CREATE_FOOD, {
-    refetchQueries: [{
-      query: FOODS_BY_CATEGORY,
-      variables: {category}
-    }],
-    onError: e => console.log(e)
+  const [editFood, result] = useMutation(EDIT_FOOD, {
+    refetchQueries: [{query: FOODS_BY_CATEGORY, variables: {category}}],
+    onError: (e) => console.log(e.message)
   })
-  
-  const DIET_OPTIONS = [
-    {
-      label: 'gluten-free',
-      value: 'gluten-free'
-    },
-    {
-      label: 'lactose-free',
-      value: 'lactose-free'
-    },
-  ]
+
+  console.log(food)
+
+  const updateFood = async (event) => {
+    event.preventDefault()
+    const editedFood = {
+      name: food.value,
+      price: Number(price),
+      category,
+      diet: diets,
+      ingredients
+    }
+    console.log(editedFood)
+    await editFood({variables: {...editedFood}})
+  }
 
   const addIngredient = (event) => {
     event.preventDefault()
     setIngredients(ingredients.concat(ingredientField.value))
     resetIngredientField()
-  } 
-  const addFood = (event) => {
-    event.preventDefault()
-
-    const newFood = {
-      name: foodName.value,
-      price: Number(price.value),
-      category,
-      diet: dietValues.map(val => val.value),
-      ingredients
-    }
-    console.log(newFood)
-    sendFood({variables: {...newFood}})
-    setDietValues([])
-    resetFoodName()
-    resetPrice()
-    setCategory('starter')
   }
-  
+
+  useEffect(() => {
+    if(food){
+      setPrice(String(food.price))
+      setCategory(food.category)
+      setDiets(food.diet.map(diet => ({label: diet, value: diet})))
+      setIngredients(food.ingredients)
+    }
+  }, [food])
+
+  if (!food){
+    return null
+  }
   return (
     <div>
-      <form onSubmit={addFood}>
+      <form onSubmit={updateFood}>
         <table>
           <tbody>
-            <tr>
-              <td>
-                name:
-              </td>
-              <td>
-                <input
-                  id='foodName'
-                  {...foodName}
-                />
-              </td>
-            </tr>
             <tr>
               <td>
                 price:
               </td>
               <td>
                 <input
-                  id='price'
-                  {...price}
+                  type='text'
+                  value={price}
+                  onChange={({target}) => setPrice(target.value)}
                 />
               </td>
             </tr>
@@ -115,9 +111,9 @@ const AddFoodForm = () => {
               <td>
                 <Select
                   multi
-                  values={dietValues}
+                  values={diets}
                   options={DIET_OPTIONS}
-                  onChange={(value) => setDietValues(value)}
+                  onChange={(value) => setDiets(value)}
                 />
               </td>
             </tr>
@@ -145,10 +141,11 @@ const AddFoodForm = () => {
             </tr>
           </tbody>
         </table>
-        <button type='submit'>Add food</button>
+        <button type='submit'>update</button>
       </form>
     </div>
   )
+
 }
 
-export default AddFoodForm
+export default EditFoodForm

@@ -19,7 +19,7 @@ const OneCategory = ({category}) => {
               <td>{food.name}</td>
               <td>{food.price}</td>
             </tr>
-            )}
+          )}
         </tbody>
       </table>
     </div>
