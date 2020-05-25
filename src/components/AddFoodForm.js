@@ -25,11 +25,11 @@ const AddFoodForm = () => {
   const DIET_OPTIONS = [
     {
       label: 'gluten-free',
-      value: 'gluten-free'
+      value: 'gl'
     },
     {
       label: 'lactose-free',
-      value: 'lactose-free'
+      value: 'l'
     },
   ]
 

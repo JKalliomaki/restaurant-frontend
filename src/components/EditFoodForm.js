@@ -19,6 +19,17 @@ const DIET_OPTIONS = [
   },
 ]
 
+const DIET_VALUES = {
+  'gl': {
+    value: 'gl',
+    label: 'gluten-free'
+  },
+  'l': {
+    value: 'l',
+    label: 'lactose-free'
+  }
+}
+
 const EditFoodForm = ({food}) => {
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
@@ -68,7 +79,7 @@ const EditFoodForm = ({food}) => {
     if(food){
       setPrice(String(food.price.toFixed(2)))
       setCategory(food.category)
-      setDiets(food.diet.map(diet => ({label: diet, value: diet})))
+      setDiets(food.diet.map(diet => (DIET_VALUES[diet])))
       setIngredients(food.ingredients)
     }
   }, [food])

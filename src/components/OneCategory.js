@@ -3,6 +3,7 @@ import {useQuery} from '@apollo/client'
 
 import {FOODS_BY_CATEGORY} from '../queries'
 
+
 const OneCategory = ({category}) => {
   const {loading, data} = useQuery(FOODS_BY_CATEGORY, {variables: {category}})
 
@@ -18,6 +19,9 @@ const OneCategory = ({category}) => {
             <tr key={food.name}>
               <td>{food.name}</td>
               <td>{Number.parseFloat(food.price).toFixed(2)}</td>
+              <td>
+                {food.diet.join(', ')}
+              </td>
             </tr>
           )}
         </tbody>
