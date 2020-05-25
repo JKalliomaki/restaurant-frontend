@@ -43,7 +43,7 @@ const EditMenu = ({foods}) => {
           )}
         </div>)}
       <div>
-        <EditFoodForm food={foods.allFoods.filter(food => food.name === toEdit)[0]}/>
+        <EditFoodForm food={foods.allFoods.filter(food => food.name === toEdit)[0]} setFood={setToEdit}/>
       </div>
     </div>
   )}

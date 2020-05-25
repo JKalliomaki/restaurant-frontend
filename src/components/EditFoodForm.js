@@ -30,7 +30,7 @@ const DIET_VALUES = {
   }
 }
 
-const EditFoodForm = ({food}) => {
+const EditFoodForm = ({food, setFood}) => {
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
   const [diets, setDiets] = useState([])
@@ -55,6 +55,11 @@ const EditFoodForm = ({food}) => {
       event.preventDefault()
       removeFood({variables: {name: food.name}})
     }
+  }
+
+  const closeButton = (event) => {
+    event.preventDefault()
+    setFood(null)
   }
 
   const updateFood = async (event) => {
@@ -89,6 +94,7 @@ const EditFoodForm = ({food}) => {
   }
   return (
     <div>
+      <button onClick={closeButton}>close</button>
       <form onSubmit={updateFood}>
         <table>
           <tbody>
