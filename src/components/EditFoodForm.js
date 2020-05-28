@@ -11,11 +11,11 @@ import {EDIT_FOOD, FOODS_BY_CATEGORY, REMOVE_FOOD, GET_FOODS} from '../queries'
 const DIET_OPTIONS = [
   {
     label: 'gluten-free',
-    value: 'gluten-free'
+    value: 'gl'
   },
   {
     label: 'lactose-free',
-    value: 'lactose-free'
+    value: 'l'
   },
 ]
 
@@ -38,7 +38,8 @@ const EditFoodForm = ({food, setFood}) => {
   const [ingredients, setIngredients] = useState([])
   
   const [editFood, result] = useMutation(EDIT_FOOD, {
-    refetchQueries: [{query: FOODS_BY_CATEGORY, variables: {category}}],
+    refetchQueries: [{query: FOODS_BY_CATEGORY, variables: {category: food ? food.category : null}},
+      {query: GET_FOODS}],
     onError: (e) => console.log(e.message)
   })
 
@@ -65,10 +66,10 @@ const EditFoodForm = ({food, setFood}) => {
   const updateFood = async (event) => {
     event.preventDefault()
     const editedFood = {
-      name: food.value,
+      name: food.name,
       price: Number(price),
       category,
-      diet: diets,
+      diet: diets.map(diet => diet.value),
       ingredients
     }
     await editFood({variables: {...editedFood}})
