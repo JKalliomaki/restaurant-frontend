@@ -6,8 +6,9 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import AddFoodForm from './AddFoodForm'
 import Login from './Login'
 import EditMenu from './EditMenu'
-import {GET_FOODS, GET_USER} from '../queries'
 import UserInfo from './UserInfo'
+import ShowOrders from './ShowOrders'
+import {GET_FOODS, GET_USER} from '../queries'
 
 
 const Dashboard = () => {
@@ -51,11 +52,13 @@ const Dashboard = () => {
       <div className='navMenuButtons'>
         <button className='navMenuButton' onClick={() => setPage('menu')}>Menu</button>
         <button className='navMenuButton' onClick={() => setPage('addFood')}>Add food</button>
+        <button className='navMenuButton' onClick={() => setPage('orders')}>Orders</button>
         <button className='navMenuButton' onClick={() => setPage('userInfo')}>User info</button>
       </div>
       {page === 'menu' && <EditMenu foods={foodResult.data}/>}
       {page === 'addFood' && <AddFoodForm />}
       {page === 'userInfo' && <UserInfo user={user}/>}
+      {page === 'orders' && <ShowOrders />}
     </div>
   )
 }

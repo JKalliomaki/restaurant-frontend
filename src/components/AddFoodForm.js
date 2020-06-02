@@ -48,7 +48,6 @@ const AddFoodForm = () => {
       diet: dietValues.map(val => val.value),
       ingredients
     }
-    console.log(newFood)
     sendFood({variables: {...newFood}})
     setDietValues([])
     resetFoodName()

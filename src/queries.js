@@ -77,6 +77,28 @@ query getFoods($category: String!){
 }
 `
 
+export const GET_ORDERS = gql`
+query {
+  allOrders{
+    orderer
+    phoneNr
+    items
+    id
+  }
+}
+`
+
+export const REMOVE_ORDER = gql`
+mutation remove($id: ID!){
+  removeOrder(
+    id: $id
+  ){
+    orderer
+    items
+  }
+}
+`
+
 export const LOGIN = gql`
 mutation login($username: String!, $password: String!){
   login(
