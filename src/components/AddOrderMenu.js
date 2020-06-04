@@ -1,7 +1,6 @@
 import React from 'react'
 
 const AddOrderMenu = ({foods, adder}) => {
-  console.log(foods)
   const buttonsStyle = {
     display: 'flex',
     flexDirection: 'column',

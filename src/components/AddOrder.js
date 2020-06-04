@@ -16,13 +16,23 @@ const AddOrder = ({user, foods}) => {
 
   const sendOrder = (event) => {
     event.preventDefault()
+    const itemsToSend = items.map(food => {
+      let foodArray = []
+      for (let i = 0 ; i < food.amount; i++){
+        foodArray.push(food.name)
+      }
+      return foodArray
+    }).flat()
     const newOrder = {
       waiter: user.id,
       tableNr: Number(tableNr.value),
+      items: itemsToSend
+
     }
     createOrder({variables: {...newOrder}})
 
     resetTableNr()
+    setItems([])
   }
   
   const addToItems = (event) => {
