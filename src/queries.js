@@ -90,6 +90,21 @@ query {
 }
 `
 
+export const CREATE_ORDER = gql`
+mutation createOrder($tableNr: Int!, $items: [String!]!){
+  createOrder(
+    tableNr: $tableNr
+    items: $items
+  ){
+    waiter{
+      username
+    }
+    tableNr
+    items
+  }
+}
+`
+
 export const REMOVE_ORDER = gql`
 mutation remove($id: ID!){
   removeOrder(

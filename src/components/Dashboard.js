@@ -61,7 +61,7 @@ const Dashboard = () => {
       {page === 'addFood' && <AddFoodForm />}
       {page === 'userInfo' && <UserInfo user={user}/>}
       {page === 'orders' && <ShowOrders />}
-      {page === 'addOrder' && <AddOrder />}
+      {page === 'addOrder' && <AddOrder user={user} foods={foodResult.data}/>}
     </div>
   )
 }
