@@ -45,7 +45,6 @@ const ShowOrders = () => {
   const removeButton = async event => {
     event.preventDefault()
     const orderId = event.target.id
-    console.log(orderId)
     if (window.confirm('Are you sure?')){
       removeOrder({variables: {id: orderId}})
     }
@@ -56,7 +55,6 @@ const ShowOrders = () => {
   }
   return (
     <div>
-
       <h3>Orders</h3>
       {data.allOrders.map(ordersMapFunc)}
     </div>

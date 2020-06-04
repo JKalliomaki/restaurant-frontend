@@ -45,6 +45,18 @@ const AddOrder = ({user, foods}) => {
     }
   }
 
+  const removeOne = (event) => {
+    event.preventDefault()
+    const foodName = event.target.id
+    const amountOfFoods = items.find(item => item.name === foodName).amount
+    if (amountOfFoods === 1){
+      const newItems = items.map(item => item.name === foodName ? null : item)
+      setItems(newItems.filter(item => item != null))
+    } else {
+      setItems(items.map(item => item.name === foodName ? {...item, amount: item.amount - 1} : item))
+    }
+  }
+
   return (
     <div>
       hello {user._id}
@@ -68,7 +80,7 @@ const AddOrder = ({user, foods}) => {
               <td>
                 <ul>
                   {items.map(food => <li key={food.name}>
-                    {food.amount}x {food.name}<button id={food.name}>X</button>
+                    {food.amount}x {food.name}<button onClick={removeOne} id={food.name}>X</button>
                   </li>)}
                 </ul>
               </td>
