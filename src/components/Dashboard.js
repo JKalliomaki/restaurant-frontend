@@ -8,6 +8,7 @@ import Login from './Login'
 import EditMenu from './EditMenu'
 import UserInfo from './UserInfo'
 import ShowOrders from './ShowOrders'
+import AddOrder from './AddOrder'
 import {GET_FOODS, GET_USER} from '../queries'
 
 
@@ -52,6 +53,7 @@ const Dashboard = () => {
       <div className='navMenuButtons'>
         <button className='navMenuButton' onClick={() => setPage('menu')}>Menu</button>
         <button className='navMenuButton' onClick={() => setPage('addFood')}>Add food</button>
+        <button className='navMenuButton' onClick={() => setPage('addOrder')}>Add order</button>
         <button className='navMenuButton' onClick={() => setPage('orders')}>Orders</button>
         <button className='navMenuButton' onClick={() => setPage('userInfo')}>User info</button>
       </div>
@@ -59,6 +61,7 @@ const Dashboard = () => {
       {page === 'addFood' && <AddFoodForm />}
       {page === 'userInfo' && <UserInfo user={user}/>}
       {page === 'orders' && <ShowOrders />}
+      {page === 'addOrder' && <AddOrder />}
     </div>
   )
 }

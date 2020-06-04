@@ -80,8 +80,10 @@ query getFoods($category: String!){
 export const GET_ORDERS = gql`
 query {
   allOrders{
-    orderer
-    phoneNr
+    waiter{
+      username
+    }
+    tableNr
     items
     id
   }
@@ -93,7 +95,7 @@ mutation remove($id: ID!){
   removeOrder(
     id: $id
   ){
-    orderer
+    tableNr
     items
   }
 }

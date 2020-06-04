@@ -29,7 +29,8 @@ const ShowOrders = () => {
 
       <h3>Orders</h3>
       {data.allOrders.map(order => (
-        <div key={order.orderer}>{order.orderer} phoneNr: {order.phoneNr}
+        <div key={order.tableNr}>table Nr: {order.tableNr}
+          <div>waiter: {order.waiter.username}</div>
           <ul>
             {order.items.map(item => <li key={item}>{item}</li>)}
           </ul>
