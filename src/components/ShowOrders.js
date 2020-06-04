@@ -22,7 +22,7 @@ const ShowOrders = () => {
 
   const ordersMapFunc = (order) => {
     let orderItems = []
-    order.items.map(food => {
+    order.items.forEach(food => {
       if (orderItems.map(order => order.name).includes(food)){
         orderItems = orderItems.map(item => item.name === food ? {name: food, amount: item.amount + 1} : item)
       } else {

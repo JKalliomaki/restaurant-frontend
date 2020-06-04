@@ -116,6 +116,20 @@ mutation remove($id: ID!){
 }
 `
 
+export const CREATE_USER = gql`
+mutation createUser($username: String!, $password: String!, $role: Int!){
+  createUser(
+    username: $username
+    password: $password
+    role: $role
+  ){
+    username
+    role
+  }
+}
+
+`
+
 export const LOGIN = gql`
 mutation login($username: String!, $password: String!){
   login(
