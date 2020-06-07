@@ -25,6 +25,10 @@ export const GlobalStyles = createGlobalStyle`
 
   }
 
+  img {
+    width: 10em;
+  }
+
 `
 
 export const Container = styled.div`

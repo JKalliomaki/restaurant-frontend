@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react'
-import {useQuery, useLazyQuery} from '@apollo/client'
+import React, {useState} from 'react'
 import ClipLoader from 'react-spinners/ClipLoader'
 
 import {
@@ -17,29 +16,11 @@ import EditMenu from './EditMenu'
 import UserInfo from './UserInfo'
 import ShowOrders from './ShowOrders'
 import AddOrder from './AddOrder'
-import {GET_FOODS, GET_USER} from '../queries'
 
 
-const Dashboard = () => {
-  const [token, setToken] = useState(null)
+const Dashboard = ({user, token, setToken, foodResult}) => {
   const [page, setPage] = useState('menu')
-  const foodResult = useQuery(GET_FOODS)
-  const [getUser, userResult] = useLazyQuery(GET_USER)
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const token = localStorage.getItem('restaurantUserToken')
-    if(token){
-      setToken(token)
-      getUser()
-    }
-  }, []) //eslint-disable-line
-
-  useEffect(() => {
-    if(userResult.data){
-      setUser(userResult.data.me)
-    }
-  }, [userResult.data])
+  
 
   const logout = (event) => {
     event.preventDefault()

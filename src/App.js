@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import {useLazyQuery, useQuery} from '@apollo/client'
 import {
   BrowserRouter as Router,
   Switch, Route, 
@@ -7,8 +8,31 @@ import {
 import Menu from './components/menu'
 import Dashboard from './components/Dashboard'
 import {Container, GlobalStyles} from './styles'
+import {GET_USER, GET_FOODS} from './queries'
 
 const App = () => {
+  const [getUser, userResult] = useLazyQuery(GET_USER)
+  const [token, setToken] = useState(null)
+  const [user, setUser] = useState(null)
+  const foodResult = useQuery(GET_FOODS, {
+    onError: (e) => {
+      console.log(e.message)
+    }
+  })
+
+  useEffect(() => {
+    const token = localStorage.getItem('restaurantUserToken')
+    if(token){
+      setToken(token)
+      getUser()
+    }
+  }, []) //eslint-disable-line
+
+  useEffect(() => {
+    if(userResult.data){
+      setUser(userResult.data.me)
+    }
+  }, [userResult.data])
 
   return (
     <Container>
@@ -16,7 +40,12 @@ const App = () => {
       <Router>
         <Switch>
           <Route path='/dashboard'>
-            <Dashboard />
+            <Dashboard 
+              user={user} 
+              token={token} 
+              setToken={setToken}
+              foodResult={foodResult}
+            />
           </Route>
           <Route path='/'>
             <div>

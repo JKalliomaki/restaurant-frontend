@@ -4,6 +4,7 @@ import {GET_CATEGORIES} from '../queries'
 
 import OneCategory from './OneCategory'
 import { Box, StartPage } from '../styles'
+import blankLogo from '../imgs/blankLogo.png'
 
 const Menu = () => {
   const {loading, data} = useQuery(GET_CATEGORIES)
@@ -14,6 +15,7 @@ const Menu = () => {
   
   return (
     <StartPage>
+      <img src={blankLogo} alt='Site logo' />
       <Box>
         <p>Home of a good food</p>
         <p>Foodstreet 123</p>
