@@ -6,22 +6,26 @@ import {
 
 import Menu from './components/menu'
 import Dashboard from './components/Dashboard'
+import {Container, GlobalStyles} from './styles'
 
 const App = () => {
 
   return (
-    <Router>
-      <Switch>
-        <Route path='/dashboard'>
-          <Dashboard />
-        </Route>
-        <Route path='/'>
-          <div>
-            <Menu />
-          </div>
-        </Route>
-      </Switch>
-    </Router>
+    <Container>
+      <GlobalStyles />
+      <Router>
+        <Switch>
+          <Route path='/dashboard'>
+            <Dashboard />
+          </Route>
+          <Route path='/'>
+            <div>
+              <Menu />
+            </div>
+          </Route>
+        </Switch>
+      </Router>
+    </Container>
   )
 }
 

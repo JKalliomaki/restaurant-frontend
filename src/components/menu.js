@@ -3,6 +3,7 @@ import {useQuery} from '@apollo/client'
 import {GET_CATEGORIES} from '../queries'
 
 import OneCategory from './OneCategory'
+import { Box, StartPage } from '../styles'
 
 const Menu = () => {
   const {loading, data} = useQuery(GET_CATEGORIES)
@@ -12,10 +13,20 @@ const Menu = () => {
   }
   
   return (
-    <div>
-      {data.allCategories.map(category => 
-        <OneCategory key={category} category={category} />)}
-    </div>
+    <StartPage>
+      <Box>
+        <p>Home of a good food</p>
+        <p>Foodstreet 123</p>
+        <p>Food-city</p>
+        <p>0400-123123</p>
+
+      </Box>
+      <Box>
+        {data.allCategories.map(category => 
+          <OneCategory key={category} category={category} />)}
+      </Box>
+
+    </StartPage>
   )}
 
 export default Menu

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import CreateUserForm from './CreateUserForm'
+import { DBRInnerLeft } from '../styles'
 
 
 /* Role meanings:
@@ -21,13 +22,13 @@ const USER_ROLES = {
 const UserInfo = ({user}) => {
   const role = USER_ROLES[user.role]
   return (
-    <div>
+    <DBRInnerLeft>
       <div>
         <h3>Hello {user.username}</h3>
         <p>role: {role}</p>
       </div>
       {role === 'owner' && <CreateUserForm /> }
-    </div>
+    </DBRInnerLeft>
   )
 }
 

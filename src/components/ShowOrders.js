@@ -4,6 +4,11 @@ import ClipLoader from 'react-spinners/ClipLoader'
 
 
 import {GET_ORDERS, REMOVE_ORDER} from '../queries'
+import { 
+  DashboardRight,
+  OrderList,
+  Order,
+} from '../styles'
 
 const ShowOrders = () => {
   const {loading, data} = useQuery(GET_ORDERS)
@@ -12,13 +17,6 @@ const ShowOrders = () => {
     onError: (e) => console.log(e.message)
   })
 
-  const orderStyle = {
-    border: '1px solid',
-    borderColor: '#ccc',
-    borderRadius: 12,
-    margin: 5,
-    padding: 5,
-  }
 
   const ordersMapFunc = (order) => {
     let orderItems = []
@@ -31,14 +29,14 @@ const ShowOrders = () => {
     })
     
     return (
-      <div style={orderStyle} key={order.tableNr}>
+      <Order key={order.tableNr}>
         table Nr: {order.tableNr}
         <div>waiter: {order.waiter.username}</div>
         <ul>
           {orderItems.map(item => <li key={item.name}>{item.amount}x {item.name}</li>)}
         </ul>
         <button id={order.id} onClick={removeButton}>Remove order</button>
-      </div>
+      </Order>
     )
   }
 
@@ -54,10 +52,12 @@ const ShowOrders = () => {
     return <ClipLoader />
   }
   return (
-    <div>
-      <h3>Orders</h3>
-      {data.allOrders.map(ordersMapFunc)}
-    </div>
+    <DashboardRight>
+      <OrderList >
+        <h3 style={{width: '100%'}}>Orders</h3>
+        {data.allOrders.map(ordersMapFunc)}
+      </OrderList>
+    </DashboardRight>
   )
 }
 

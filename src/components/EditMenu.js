@@ -3,15 +3,13 @@ import {useQuery} from '@apollo/client'
 import {GET_CATEGORIES} from '../queries'
 import EditFoodForm from './EditFoodForm'
 
+import {
+  MenuButtons,
+  MenuButton,
+  DashboardRight,
+  DBRInnerLeft,
+} from '../styles'
 
-const menuButtonsStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  width: '10em',
-}
-const menuButtonStyle = {
-  margin: 3
-}
 
 const EditMenu = ({foods}) => {
   const {loading, data} = useQuery(GET_CATEGORIES)
@@ -29,23 +27,24 @@ const EditMenu = ({foods}) => {
   }
   
   return (
-    <div>
-      {data.allCategories.map(category => 
-        <div key={category} className='menuButtons' style={menuButtonsStyle}>
-          <h3>{category}</h3>
-          {foods.allFoods.filter(food => food.category === category).map(
-            food => <button 
-              style={menuButtonStyle} 
-              key={food.name} 
-              id={food.name}
-              onClick={editButton}
-            >{food.name} price: {Number.parseFloat(food.price).toFixed(2)}</button>
-          )}
-        </div>)}
-      <div>
-        <EditFoodForm food={foods.allFoods.filter(food => food.name === toEdit)[0]} setFood={setToEdit}/>
-      </div>
-    </div>
+    <DashboardRight>
+      <DBRInnerLeft>
+        {data.allCategories.map(category => 
+          <MenuButtons key={category}>
+            <h3>{category}</h3>
+            {foods.allFoods.filter(food => food.category === category).map(
+              food => <MenuButton 
+                key={food.name} 
+                id={food.name}
+                onClick={editButton}
+              >{food.name}<br/>price: {Number.parseFloat(food.price).toFixed(2)}</MenuButton>
+            )}
+          </MenuButtons>)}
+      </DBRInnerLeft>
+
+      <EditFoodForm food={foods.allFoods.filter(food => food.name === toEdit)[0]} setFood={setToEdit}/>
+
+    </DashboardRight>
   )}
 
 export default EditMenu

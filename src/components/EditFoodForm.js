@@ -4,6 +4,7 @@ import {useMutation} from '@apollo/client'
 import Select from 'react-dropdown-select'
 import ClipLoader from 'react-spinners/ClipLoader'
 
+import {DBRInnerRight, CloseButton} from '../styles'
 
 import {useField} from '../utils/hooks'
 import {EDIT_FOOD, FOODS_BY_CATEGORY, REMOVE_FOOD, GET_FOODS} from '../queries'
@@ -94,8 +95,8 @@ const EditFoodForm = ({food, setFood}) => {
     return null
   }
   return (
-    <div>
-      <button onClick={closeButton}>close</button>
+    <DBRInnerRight>
+      <CloseButton onClick={closeButton}>X</CloseButton>
       <form onSubmit={updateFood}>
         <table>
           <tbody>
@@ -157,6 +158,7 @@ const EditFoodForm = ({food, setFood}) => {
                 <input
                   id='ingredient'
                   {...ingredientField}
+                  type='text'
                 />
               </td>
               <td>
@@ -174,12 +176,12 @@ const EditFoodForm = ({food, setFood}) => {
           </tbody>
         </table>
         <button type='submit'>update</button>
-        <button onClick={removeButton}>X</button>
+        <button onClick={removeButton}>remove</button>
       </form>
       <ClipLoader
         loading={result.loading || removeResult.loading}
       />
-    </div>
+    </DBRInnerRight>
   )
 
 }

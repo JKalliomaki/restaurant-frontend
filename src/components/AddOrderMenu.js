@@ -1,21 +1,20 @@
 import React from 'react'
+import { DBRInnerRight, OrderMenu, MenuButton } from '../styles'
 
 const AddOrderMenu = ({foods, adder}) => {
-  const buttonsStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 100
-  }
+
   const oneButtonStyle = {
     width: 150,
     margin: 3
   }
 
   return (
-    <div style={buttonsStyle}>
-      {foods.allFoods.map(food => 
-        <button onClick={adder} key={food.name} style={oneButtonStyle} id={food.name}>{food.name}</button>)}
-    </div>
+    <DBRInnerRight >
+      <OrderMenu >
+        {foods.allFoods.map(food => 
+          <MenuButton onClick={adder} key={food.name} style={oneButtonStyle} id={food.name}>{food.name}</MenuButton>)}
+      </OrderMenu>
+    </DBRInnerRight>
   )
 }
 

@@ -4,6 +4,7 @@ import {useMutation} from '@apollo/client'
 import {CREATE_ORDER, GET_ORDERS} from '../queries'
 import {useField} from '../utils/hooks'
 import AddOrderMenu from './AddOrderMenu'
+import { DashboardRight, DBRInnerLeft } from '../styles'
 
 
 const AddOrder = ({user, foods}) => {
@@ -58,39 +59,43 @@ const AddOrder = ({user, foods}) => {
   }
 
   return (
-    <div>
-      hello {user._id}
-      <form onSubmit={sendOrder}>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                tableNr: 
-              </td>
-              <td>
-                <input
-                  {...tableNr}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                items: 
-              </td>
-              <td>
-                <ul>
-                  {items.map(food => <li key={food.name}>
-                    {food.amount}x {food.name}<button onClick={removeOne} id={food.name}>X</button>
-                  </li>)}
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button type='submit' >Add</button>
-      </form>
+    <DashboardRight>
+      <DBRInnerLeft>
+        <form onSubmit={sendOrder}>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  tableNr: 
+                </td>
+                <td>
+                  <input
+                    {...tableNr}
+                    type='text'
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  items: 
+                </td>
+                <td>
+                  <table>
+                    <tbody>
+                      {items.map(food => <tr key={food.name}>
+                        <td>{food.amount}x {food.name}</td><td><button onClick={removeOne} id={food.name}>X</button></td>
+                      </tr>)}
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type='submit' >Add</button>
+        </form>
+      </DBRInnerLeft>
       <AddOrderMenu foods={foods} adder={addToItems} />
-    </div>
+    </DashboardRight>
   )
 }
 
