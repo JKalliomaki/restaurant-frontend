@@ -28,7 +28,6 @@ const AddOrder = ({user, foods}) => {
       waiter: user.id,
       tableNr: Number(tableNr.value),
       items: itemsToSend
-
     }
     createOrder({variables: {...newOrder}})
 

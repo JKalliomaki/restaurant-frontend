@@ -18,15 +18,12 @@ const authLink = setContext((_, {headers}) => {
   }
 })
 
-const httpLink = new HttpLink({uri: 'http://localhost:4000'})
+const httpLink = new HttpLink({uri: '/graphql'})
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: authLink.concat(httpLink)
 })
-
-
-
 
 ReactDOM.render(
   <ApolloProvider client={client}>
